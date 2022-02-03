@@ -1,4 +1,6 @@
 package monprojet.dao;
+import java.util.*;
+import javax.persistence.Tuple;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -34,11 +36,29 @@ public class CountryRepositoryTest {
 
     @Test
     @Sql("test-data.sql") // On peut charger des donnnées spécifiques pour un test
-    void onSaitCompterLesEnregistrements() {
+    void CompteEnregistrements() {
         log.info("On compte les enregistrements de la table 'Country'");
-        int combienDePaysDansLeJeuDeTest = 3 + 1; // 3 dans data.sql, 1 dans test-data.sql
+        int nombreDePaysDansLeJeuDeTest = 3 + 1; // 3 dans data.sql, 1 dans test-data.sql
         long nombre = countryDAO.count();
-        assertEquals(combienDePaysDansLeJeuDeTest, nombre, "On doit trouver 4 pays" );
+        assertEquals( nombreDePaysDansLeJeuDeTest, nombre, "On doit trouver 4 pays" );
+    }
+
+    @Test
+    void NbreHabitantsTest(){
+        int populationTotal = 12+20;
+        //int popFonction = countryDAO.populationParPays(1);
+        assertEquals(populationTotal, countryDAO.NbreHabitants(1),"Le resultat doit être 32");
+    }
+
+    @Test
+    void ListeDeLaPopulationParPaysTest(){
+        List<Tuple> Liste = countryDAO.ListeDeLaPopulationParPays();
+        assertEquals(12+15, Liste.get(0).get(1));
+      
+        assertEquals(18, Liste.get(1).get(1));
+       
+        assertEquals(27, Liste.get(2).get(1));
+        
     }
 
 }
