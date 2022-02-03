@@ -1,12 +1,14 @@
 package monprojet.dao;
 
 import java.util.List;
+import javax.persistence.Tuple;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import monprojet.entity.Country;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 // This will be AUTO IMPLEMENTED by Spring 
-//
 
 public interface CountryRepository extends JpaRepository<Country, Integer> {
  
